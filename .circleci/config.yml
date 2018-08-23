@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image:
+    steps:
+      - run: echo "hello world"
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/clojure:latest
+    steps:
+      - run: exit $((RANDOM % 2))
+  test:
+    docker:
+      - image: circleci/clojure:latest
+    steps:
+      - run: echo "test"
+  scan:
+    docker:
+      - image: circleci/clojure:latest
+    steps:
+      - run: echo "test"
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
+  security_scan:
+    jobs:
+      - build
+      - scan
