@@ -32,11 +32,6 @@ jobs:
 
       - run: mvn dependency:go-offline
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
       # run tests! (see http://maven.apache.org/surefire/maven-surefire-plugin/examples/class-loading.html)
       - run:
           name: Run all tests
