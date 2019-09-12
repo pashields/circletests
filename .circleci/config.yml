@@ -37,8 +37,8 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # run tests!
-      - run: mvn integration-test
+      # run tests! (see http://maven.apache.org/surefire/maven-surefire-plugin/examples/class-loading.html)
+      - run: mvn -DuseSystemClassLoader=false integration-test
 
       - run:
           name: Save test results
