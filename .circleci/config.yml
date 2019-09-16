@@ -7,9 +7,14 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.9
 
+executors:
+  jdk:
+    docker:
+      - image: 'circleci/openjdk:8u212-jdk-stretch'
+
 workflows:
   maven_test:
     jobs:
       - maven/test:
           settings_file: pom.xml
-          maven_command: mvn -Dsurefire.useSystemClassLoader=false
+          executor: jdk
