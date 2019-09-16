@@ -3,10 +3,12 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2.1
+
 orbs:
   maven: circleci/maven@0.0.9
 
 workflows:
   maven_test:
     jobs:
-      - maven/test
+      - maven/test:
+          settings_file: pom.xml
