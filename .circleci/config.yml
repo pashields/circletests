@@ -12,3 +12,4 @@ workflows:
     jobs:
       - maven/test:
           settings_file: pom.xml
+          maven_command: mvn -Dsurefire.useSystemClassLoader=false
