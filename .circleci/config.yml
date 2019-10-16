@@ -11,16 +11,17 @@ executors:
   jdk:
     docker:
       - image: 'circleci/openjdk:8u212-jdk-stretch'
-
+jobs:
+ foo:
+   steps:
+     - setup_remote_docker
+     - run:
+         name: Test
+         command: echo "hello world"
 workflows:
   maven_test:
     jobs:
-      - foo:
-        steps:
-          - setup_remote_docker
-          - run:
-            name: Test
-            command: echo "hello world"
+      - foo
       - maven/test:
           settings_file: pom.xml
           executor: jdk
