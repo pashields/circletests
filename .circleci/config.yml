@@ -15,7 +15,12 @@ executors:
 workflows:
   maven_test:
     jobs:
-      - setup_remote_docker
+      - foo:
+        steps:
+          - setup_remote_docker
+          - run:
+            name: Test
+            command: echo "hello world"
       - maven/test:
           settings_file: pom.xml
           executor: jdk
