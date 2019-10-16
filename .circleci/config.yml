@@ -14,7 +14,7 @@ executors:
 jobs:
  foo:
    docker:
-     - image: golang:1.6.4-jessie
+     - image: circleci/openjdk:8-jdk
    steps:
      - setup_remote_docker
      - run:
