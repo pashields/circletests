@@ -15,6 +15,7 @@ executors:
 workflows:
   maven_test:
     jobs:
+      - setup_remote_docker
       - maven/test:
           settings_file: pom.xml
           executor: jdk
