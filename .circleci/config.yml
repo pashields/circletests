@@ -1,29 +1,7 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2.1
-
 orbs:
-  maven: circleci/maven@0.0.9
-
-executors:
-  jdk:
-    docker:
-      - image: 'circleci/openjdk:8u212-jdk-stretch'
-jobs:
- foo:
-   docker:
-     - image: circleci/openjdk:8-jdk
-   steps:
-     - setup_remote_docker
-     - run:
-         name: Test
-         command: echo "hello world"
+  welcome: circleci/welcome-orb@0.4.1
 workflows:
-  maven_test:
+  welcome:
     jobs:
-      - foo
-      - maven/test:
-          settings_file: pom.xml
-          executor: jdk
+      - welcome/run
