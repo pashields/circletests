@@ -1,8 +1,6 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2.1
+
+setup: true
 
 parameters:
   b64diff:
@@ -10,24 +8,34 @@ parameters:
     default: ""
 
 orbs:
-  maven: circleci/maven@0.0.9
+  continuation: sandbox/continuation@0.0.3
+  local_tests:
+    commands:
+      patch:
+        parameters:
+          config_file:
+            type: string
+        steps:
+          - run:
+              name: Apply the patch
+              command: yq e '.jobs | select(.*.steps.[] == "checkout") | keys' << parameters.config_file >> \
+                | awk '{print $2}' \
+                | xargs -n 1 -I {} \
+                  yq e -i '.jobs.{}.steps.[1] |= "echo << parameters.b64diff >> | base64 -d | patch"' << parameters.config_file >>
 
-executors:
-  jdk:
-    docker:
-      - image: 'circleci/openjdk:8u212-jdk-stretch'
 jobs:
- foo:
-   docker:
-     - image: circleci/openjdk:8-jdk
-   steps:
-     - checkout
-     - run: echo "<< pipeline.parameters.b64diff >>" | base64 -d > diff.patch
-     - run: patch < diff.patch
-     - run:
-         name: Test
-         command: cat fizz.buzz
+  setup:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - apt-get install yq
+      - local_tests/patch:
+          config_file: .circleci/continue_config.yml
+      - continuation/continue:
+          configuration_path: .circleci/continue_config.yml
+
 workflows:
-  maven_test:
+  setup:
     jobs:
-      - foo
+      - setup
