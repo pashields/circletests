@@ -4,6 +4,11 @@
 #
 version: 2.1
 
+parameters:
+  b64diff:
+    type: string
+    default: ""
+
 orbs:
   maven: circleci/maven@0.0.9
 executors:
