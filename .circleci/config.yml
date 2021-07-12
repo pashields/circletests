@@ -31,7 +31,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_386 -O && mv yq_linux_386 /usr/bin/yq
+      - run: sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_386 -O /usr/bin/yq && sudo chmod 755 /usr/bin/yq
       - local_tests/patch:
           branch_data: "<<pipeline.parameters.b64diff>>"
           config_file: .circleci/continue_config.yml
