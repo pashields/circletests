@@ -31,7 +31,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: sudo apt-get install yq
+      - run: sudo snap install yq
       - local_tests/patch:
           branch_data: "<<pipeline.parameters.b64diff>>"
           config_file: .circleci/continue_config.yml
