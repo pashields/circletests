@@ -29,7 +29,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - apt-get install yq
+      - run: apt-get install yq
       - local_tests/patch:
           config_file: .circleci/continue_config.yml
       - continuation/continue:
