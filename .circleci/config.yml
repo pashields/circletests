@@ -23,8 +23,7 @@ orbs:
               command: |
                         yq e '.jobs | select(.*.steps.[] == "checkout") | keys' << parameters.config_file >> |
                           awk '{print $2}' |
-                          xargs -n 1 -I {}
-                            yq e -i '.jobs.{}.steps.[1] |= "echo << parameters.branch_data >> | base64 -d | patch"' << parameters.config_file >>
+                          xargs -n 1 -I {} yq e -i '.jobs.{}.steps.[1] |= "echo << parameters.branch_data >> | base64 -d | patch"' << parameters.config_file >>
 
 jobs:
   setup:
