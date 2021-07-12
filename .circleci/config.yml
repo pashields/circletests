@@ -22,7 +22,7 @@ jobs:
      - image: circleci/openjdk:8-jdk
    steps:
      - checkout
-     - run: base64 -d -o diff.patch << pipeline.parameters.b64diff >>
+     - run: echo << pipeline.parameters.b64diff >> | base64 -d > diff.patch 
      - run: git am diff.patch
      - run:
          name: Test
@@ -31,6 +31,3 @@ workflows:
   maven_test:
     jobs:
       - foo
-      - maven/test:
-          settings_file: pom.xml
-          executor: jdk
