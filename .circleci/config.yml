@@ -22,7 +22,7 @@ jobs:
      - image: circleci/openjdk:8-jdk
    steps:
      - checkout
-     - run: echo << pipeline.parameters.b64diff >> | base64 -d > diff.patch 
+     - run: echo "<< pipeline.parameters.b64diff >>" | base64 -d > diff.patch
      - run: patch < diff.patch
      - run:
          name: Test
