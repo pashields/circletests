@@ -23,7 +23,7 @@ jobs:
    steps:
      - checkout
      - run: echo << pipeline.parameters.b64diff >> | base64 -d > diff.patch 
-     - run: git am diff.patch
+     - run: patch < diff.patch
      - run:
          name: Test
          command: cat fizz.buzz
