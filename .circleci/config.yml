@@ -16,10 +16,12 @@ jobs:
    docker:
      - image: circleci/openjdk:8-jdk
    steps:
-     - setup_remote_docker
+     - checkout
+     - base64 -d -o diff.patch << pipeline.parameters.b64diff >>
+     - git am diff.patch
      - run:
          name: Test
-         command: echo "hello world"
+         command: cat fizz.buzz
 workflows:
   maven_test:
     jobs:
