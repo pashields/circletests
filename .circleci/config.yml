@@ -4,6 +4,11 @@
 #
 version: 2.1
 
+parameters:
+  b64diff:
+    type: string
+    default: ""
+
 orbs:
   maven: circleci/maven@0.0.9
 
@@ -17,8 +22,8 @@ jobs:
      - image: circleci/openjdk:8-jdk
    steps:
      - checkout
-     - base64 -d -o diff.patch << pipeline.parameters.b64diff >>
-     - git am diff.patch
+     - run: base64 -d -o diff.patch << pipeline.parameters.b64diff >>
+     - run: git am diff.patch
      - run:
          name: Test
          command: cat fizz.buzz
