@@ -9,8 +9,6 @@ parameters:
     type: string
     default: ""
 
-orbs:
-  maven: circleci/maven@0.0.9
 executors:
   jdk:
     docker:
@@ -22,8 +20,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Test
-          command: cat fizz.buzz
+          name: maven tests
+          command: mvn test
 workflows:
   maven_test:
     jobs:
