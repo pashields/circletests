@@ -24,7 +24,7 @@ orbs:
                         yq e -i '.parameters.b64diff = {"type": "string", "default": ""}' << parameters.config_file >>
                         yq e '.jobs | select(.*.steps.[] == "checkout") | keys' << parameters.config_file >> |
                           awk '{print $2}' |
-                          xargs -n 1 -I {} yq e -i 'del(.jobs.{}.steps.[0]) | .jobs.{}.steps = ["checkout", {"run": {"command": "echo \"\<\< parameters.branch_data \>\>\" | base64 -d | patch -p0", "name": "patching"}}] + .jobs.{}.steps' << parameters.config_file >>
+                          xargs -n 1 -I {} yq e -i 'del(.jobs.{}.steps.[0]) | .jobs.{}.steps = ["checkout", {"run": {"command": "echo \"<< pipeline.parameters.branch_data >>\" | base64 -d | patch -p0", "name": "patching"}}] + .jobs.{}.steps' << parameters.config_file >>
 
 jobs:
   setup:
