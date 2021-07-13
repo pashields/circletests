@@ -4,11 +4,6 @@
 #
 version: 2.1
 
-parameters:
-  b64diff:
-    type: string
-    default: ""
-
 executors:
   jdk:
     docker:
