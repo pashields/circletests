@@ -12,4 +12,9 @@ public class ATest {
     assertEquals("a", "a");
   }
 
+  @Test
+  public void test2() {
+    assertEquals(1l, 1l);
+  }
+
 }
